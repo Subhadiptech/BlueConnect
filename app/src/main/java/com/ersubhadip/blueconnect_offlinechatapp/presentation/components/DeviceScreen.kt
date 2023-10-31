@@ -16,20 +16,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ersubhadip.blueconnect_offlinechatapp.bluetooth.BluetoothDeviceModel
+import com.ersubhadip.blueconnect_offlinechatapp.domain.bluetooth.BluetoothDeviceModel
 import com.ersubhadip.blueconnect_offlinechatapp.presentation.BluetoothUiState
 
 @Composable
 fun DeviceScreen(
     state: BluetoothUiState,
     onStartScan: () -> Unit,
-    onStopScan: () -> Unit
+    onStopScan: () -> Unit,
+    onStartServer: () -> Unit,
+    onDeviceClick: (BluetoothDeviceModel) -> Unit
+
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         BluetoothDeviceList(
             pairedDevice = state.pairedDevices,
             scannedDevice = state.scannedDevices,
-            onClick = {},
+            onClick = onDeviceClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
@@ -40,6 +43,9 @@ fun DeviceScreen(
         ) {
             Button(onClick = onStartScan) {
                 Text("Start Scan")
+            }
+            Button(onClick = onStartServer) {
+                Text("Start Server")
             }
             Button(onClick = onStopScan) {
                 Text("Stop Scan")

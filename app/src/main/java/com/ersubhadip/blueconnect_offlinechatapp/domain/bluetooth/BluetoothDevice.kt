@@ -1,4 +1,4 @@
-package com.ersubhadip.blueconnect_offlinechatapp.bluetooth
+package com.ersubhadip.blueconnect_offlinechatapp.domain.bluetooth
 
 
 typealias BluetoothDeviceModel = BluetoothDevice

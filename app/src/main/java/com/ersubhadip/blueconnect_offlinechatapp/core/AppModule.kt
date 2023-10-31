@@ -1,8 +1,8 @@
 package com.ersubhadip.blueconnect_offlinechatapp.core
 
 import android.content.Context
-import com.ersubhadip.blueconnect_offlinechatapp.bluetooth.AndroidBluetoothControllerImpl
-import com.ersubhadip.blueconnect_offlinechatapp.bluetooth.BluetoothController
+import com.ersubhadip.blueconnect_offlinechatapp.domain.bluetooth.AndroidBluetoothControllerImpl
+import com.ersubhadip.blueconnect_offlinechatapp.domain.bluetooth.BluetoothController
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
