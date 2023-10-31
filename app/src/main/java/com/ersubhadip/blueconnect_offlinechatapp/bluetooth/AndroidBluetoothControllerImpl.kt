@@ -1,15 +1,19 @@
 package com.ersubhadip.blueconnect_offlinechatapp.bluetooth
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import com.ersubhadip.blueconnect_offlinechatapp.mappers.toBluetoothDeviceModel
+import com.ersubhadip.blueconnect_offlinechatapp.receivers.FoundDeviceReceiver
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
+@SuppressLint("MissingPermission")
 class AndroidBluetoothControllerImpl(
     private val context: Context
 ) : BluetoothController {
@@ -24,6 +28,16 @@ class AndroidBluetoothControllerImpl(
     private val bluetoothAdapter by lazy {
         bluetoothManager?.adapter
     }
+    private val foundDeviceReceiver = FoundDeviceReceiver { device ->
+        _scannedDevices.update { devices ->
+            val newDevice = device.toBluetoothDeviceModel()
+            if (newDevice in devices) devices else devices + newDevice
+        }
+    }
+
+    init {
+        updatePairedDevice()
+    }
 
     override val scannedDevices: StateFlow<List<BluetoothDeviceModel>>
         get() = _scannedDevices.asStateFlow()
@@ -31,15 +45,25 @@ class AndroidBluetoothControllerImpl(
         get() = _pairedDevices.asStateFlow()
 
     override fun startDiscovery() {
-        TODO("Not yet implemented")
+        if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) return
+
+        context.registerReceiver(
+            foundDeviceReceiver,
+            IntentFilter(android.bluetooth.BluetoothDevice.ACTION_FOUND)
+        )
+
+        updatePairedDevice()
+        bluetoothAdapter?.startDiscovery()
     }
 
     override fun stopDiscovery() {
-        TODO("Not yet implemented")
+        if (!hasPermission(Manifest.permission.BLUETOOTH_CONNECT)) return
+
+        bluetoothAdapter?.cancelDiscovery()
     }
 
     override fun releaseController() {
-        TODO("Not yet implemented")
+        context.unregisterReceiver(foundDeviceReceiver)
     }
 
     private fun updatePairedDevice() {
