@@ -13,16 +13,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.Surface
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ersubhadip.blueconnect_offlinechatapp.presentation.components.ChatScreen
+import com.ersubhadip.blueconnect_offlinechatapp.presentation.components.CustomText
 import com.ersubhadip.blueconnect_offlinechatapp.presentation.components.DeviceScreen
 import com.ersubhadip.blueconnect_offlinechatapp.ui.theme.BlueConnectOfflineChatAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +45,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         val enableBluetoothLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {}
@@ -92,7 +95,8 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Surface(
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
+                    modifier = Modifier.safeDrawingPadding()
                 ) {
                     when {
                         state.isConnecting -> {
@@ -102,7 +106,7 @@ class MainActivity : ComponentActivity() {
                                 verticalArrangement = Arrangement.Center
                             ) {
                                 CircularProgressIndicator()
-                                Text(text = "Connecting...")
+                                CustomText(text = "Connecting...")
                             }
                         }
 
