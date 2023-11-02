@@ -47,16 +47,17 @@ fun ChatScreen(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CustomText(
-                text = "Messages",
-                modifier = Modifier.weight(1f)
-            )
             IconButton(onClick = onDisconnect) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Disconnect"
                 )
             }
+            CustomText(
+                text = state.messages[0].sendersName,
+                modifier = Modifier.weight(1f)
+            )
+
         }
         LazyColumn(
             modifier = Modifier

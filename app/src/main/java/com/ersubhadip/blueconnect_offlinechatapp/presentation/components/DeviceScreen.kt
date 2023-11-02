@@ -90,7 +90,7 @@ fun DeviceScreen(
                         .weight(1f)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                PairedCTA(onStartScan, onStopScan)
+                ScannedCTA(onStartServer)
             }
 
             CurrentTab.Scanned -> {
@@ -102,10 +102,9 @@ fun DeviceScreen(
                         .weight(1f)
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                ScannedCTA(onStartServer)
+                PairedCTA(onStartScan, onStopScan)
             }
         }
-
     }
 }
 

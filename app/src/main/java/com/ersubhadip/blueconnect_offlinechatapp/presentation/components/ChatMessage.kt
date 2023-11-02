@@ -8,11 +8,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ersubhadip.blueconnect_offlinechatapp.domain.bluetooth.BluetoothMessage
+import com.ersubhadip.blueconnect_offlinechatapp.ui.theme.PrimaryGray
+import com.ersubhadip.blueconnect_offlinechatapp.ui.theme.PrimaryPurple
+import com.ersubhadip.blueconnect_offlinechatapp.ui.theme.PrimaryTextColor
+import com.ersubhadip.blueconnect_offlinechatapp.ui.theme.PrimaryWhite
 
 @Composable
 fun ChatMessage(
@@ -30,18 +32,14 @@ fun ChatMessage(
                 )
             )
             .background(
-                if (message.isFromLocalUser) Color.Cyan else Color.Magenta
+                if (message.isFromLocalUser) PrimaryPurple else PrimaryGray
             )
             .padding(16.dp)
+
     ) {
         CustomText(
-            text = message.sendersName,
-            fontSize = 10.sp,
-            color = Color.Black
-        )
-        CustomText(
             text = message.message,
-            color = Color.Black,
+            color = if (message.isFromLocalUser) PrimaryWhite else PrimaryTextColor,
             modifier = Modifier.widthIn(max = 250.dp)
         )
     }
@@ -54,7 +52,7 @@ fun ChatMessagePreview() {
         message = BluetoothMessage(
             message = "Hello World!",
             sendersName = "Pixel 6",
-            isFromLocalUser = false
+            isFromLocalUser = true
         )
     )
 }
