@@ -1,9 +1,3 @@
-
-<!--![Cover](https://user-images.githubusercontent.com/62587060/216439920-a319c685-58ed-4a06-9699-874594f9fbb2.png)-->
-
-![BlueConnect](https://github.com/Subhadiptech/BranchInternationalAssignment/assets/89024718/256d4dd4-42f1-4459-8a20-2c3a00270b74)
-
-
 # BlueConnect 📱
 Android Application which supports sending text messages and media's through bluetooth technology and do not rely on internet connection. This is helpful for sharing stuffs in low/no internet region among groups.
 
