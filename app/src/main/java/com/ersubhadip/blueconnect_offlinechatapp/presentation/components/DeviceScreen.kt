@@ -201,6 +201,7 @@ fun BluetoothDeviceList(
             CustomText(
                 text = device.name,
                 fontSize = 16.sp,
+                color = PrimaryWhite,
                 modifier = Modifier.fillMaxWidth().clickable {
                     onClick(device)
                 }.padding(16.dp)
